@@ -7,6 +7,11 @@ use App\Models\Project;
 
 class ProjectImage extends Model
 {
+    protected $fillable = [
+        'project_id',
+        'image_path',
+        'sort_order',
+    ];
     public function project()
         {
             return $this->belongsTo(Project::class);

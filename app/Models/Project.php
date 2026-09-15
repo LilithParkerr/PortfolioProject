@@ -8,6 +8,12 @@ use App\Models\ProjectImage;
 
 class Project extends Model
 {
+    protected $fillable = [
+        'category_id',
+        'title',
+        'slug',
+        'description',
+    ];
     public function category()
     {
         return $this->belongsTo(Category::class);
