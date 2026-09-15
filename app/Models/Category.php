@@ -7,5 +7,13 @@ use App\Models\Project;
 
 class Category extends Model
 {
-     return $this->hasMany(Project::class);
+        protected $fillable = [
+        'name',
+        'slug',
+    ];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
