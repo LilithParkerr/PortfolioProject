@@ -36,7 +36,18 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'category_id' => ['required', 'exists:categories,id'],
+        'title' => ['required', 'string', 'max:255'],
+        'slug' => ['required', 'string', 'max:255', 'unique:projects,slug'],
+        'description' => ['required', 'string'],
+    ]);
+
+    Project::create($validated);
+
+    return redirect()
+        ->route('admin.projects.index')
+        ->with('success', 'Project created successfully!');
     }
 
     /**
