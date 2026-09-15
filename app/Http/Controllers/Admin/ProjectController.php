@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -12,7 +14,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = \App\Models\Project::with('category')
+        ->latest()
+        ->get();
+
+    return view('admin.projects.index', compact('projects'));
     }
 
     /**
@@ -20,7 +26,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('name')->get();
+
+    return view('admin.projects.create', compact('categories'));
     }
 
     /**
