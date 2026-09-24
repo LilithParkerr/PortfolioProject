@@ -36,12 +36,38 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+   
+
+           $validated = $request->validate([
         'category_id' => ['required', 'exists:categories,id'],
         'title' => ['required', 'string', 'max:255'],
         'slug' => ['required', 'string', 'max:255', 'unique:projects,slug'],
         'description' => ['required', 'string'],
+        'images' => ['nullable', 'array'],
+        'images.*' => ['image', 'max:5120'],
     ]);
+
+    $project = Project::create([
+        'category_id' => $validated['category_id'],
+        'title' => $validated['title'],
+        'slug' => $validated['slug'],
+        'description' => $validated['description'],
+    ]);
+
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $index => $image) {
+            $path = $image->store('projects', 'public');
+
+            $project->images()->create([
+                'image_path' => $path,
+                'sort_order' => $index,
+            ]);
+        }
+    }
+
+    return redirect()
+        ->route('admin.projects.index')
+        ->with('success', 'Project created successfully!'); 
 
     Project::create($validated);
 
