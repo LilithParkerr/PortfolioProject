@@ -23,5 +23,8 @@ Route::middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
         Route::resource('projects', ProjectController::class);
+
+        Route::delete('project-images/{projectImage}', [ProjectController::class, 'destroyImage'])
+            ->name('project-images.destroy');
     });
 require __DIR__.'/auth.php';

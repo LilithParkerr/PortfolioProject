@@ -113,28 +113,7 @@
                                 </p>
                             @enderror
                         </div>
-                        {{-- Existing Images --}}
-        <div class="mb-6">
-            <label class="block font-medium mb-2">
-                Current Images
-            </label>
-
-            @if ($project->images->isNotEmpty())
-                <div class="grid grid-cols-2 gap-4">
-                    @foreach ($project->images as $image)
-                        <img
-                            src="{{ asset('storage/' . $image->image_path) }}"
-                            alt="{{ $project->title }}"
-                            class="w-full h-40 object-cover rounded-lg"
-                        >
-                    @endforeach
-                </div>
-            @else
-                <p class="text-sm text-gray-500">
-            This project has no images yet.
-                </p>
-            @endif
-        </div>
+            
 
                 {{-- Add Images --}}
         <div class="mb-6">
@@ -186,9 +165,49 @@
                         </div>
 
                     </form>
+            {{-- Existing Images --}}
+            <div class="mb-6">
+                <label class="block font-medium mb-2">
+                    Current Images
+                </label>
 
-                </div>
+                @if ($project->images->isNotEmpty())
+                    <div class="grid grid-cols-2 gap-4">
+                        @foreach ($project->images as $image)
+                            <div>
+                                <img
+                                    src="{{ asset('storage/' . $image->image_path) }}"
+                                    alt="{{ $project->title }}"
+                                    class="w-full h-40 object-cover rounded-lg"
+                                >
+
+                                <form
+                                    method="POST"
+                                    action="{{ route('admin.project-images.destroy', $image) }}"
+                                    class="mt-2"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        type="submit"
+                                        class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                                    >
+                                        Delete Image
+                                    </button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-sm text-gray-500">
+                     This project has no images yet.
+                    </p>
+                @endif
             </div>
+        </div>
+    </div>
+
 
         </div>
     </div>

@@ -52,6 +52,22 @@
                 Edit
             </a>
 
+        <form
+            method="POST"
+            action="{{ route('admin.projects.destroy', $project) }}"
+            class="inline-block mt-2"
+        >
+            @csrf
+            @method('DELETE')
+
+            <button
+                type="submit"
+                class="px-3 py-1 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+            >
+                Delete
+            </button>
+        </form>
+
             <p class="text-sm text-gray-500">
                 {{ $project->category->name }}
             </p>

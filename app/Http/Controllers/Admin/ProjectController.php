@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Project;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -136,8 +137,29 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        foreach ($project->images as $image) {
+            Storage::disk('public')->delete($image->image_path);
+        }
+
+        $project->delete();
+
+        return redirect()
+            ->route('admin.projects.index')
+            ->with('success', 'Project deleted successfully!');
+    }
+
+    public function destroyImage(\App\Models\ProjectImage $projectImage)
+    {
+        $project = $projectImage->project;
+
+        Storage::disk('public')->delete($projectImage->image_path);
+
+        $projectImage->delete();
+
+        return redirect()
+            ->route('admin.projects.edit', $project)
+            ->with('success', 'Image deleted successfully!');
     }
 }
