@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(88, 28, 135, 0.22),
+            transparent 30%
+        ),
+        #050505;
+}

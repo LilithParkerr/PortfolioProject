@@ -3,10 +3,15 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\PortfolioController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('portfolio');
 });
+
+Route::get('/projects/{project:slug}', [PortfolioController::class, 'show'])
+    ->name('projects.show');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
