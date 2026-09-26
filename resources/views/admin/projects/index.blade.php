@@ -46,6 +46,12 @@
                     {{ $project->title }}
             </a>
 
+            <a
+                href="{{ route('admin.projects.edit', $project) }}"
+                class="inline-block mt-2 px-3 py-1 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition">
+                Edit
+            </a>
+
             <p class="text-sm text-gray-500">
                 {{ $project->category->name }}
             </p>

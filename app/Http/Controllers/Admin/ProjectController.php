@@ -89,19 +89,50 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        $categories = Category::orderBy('name')->get();
+
+        $project->load('images');
+
+        return view('admin.projects.edit', compact('project', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
-    }
+        $validated = $request->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'slug' => [
+                'required',
+                'string',
+                'max:255',
+                'unique:projects,slug,' . $project->id,
+            ],
+            'description' => ['required', 'string'],
+            'images' => ['nullable', 'array'],
+            'images.*' => ['image', 'max:5120'],
+        ]);
 
+        $project->update($validated);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('projects', 'public');
+
+                $project->images()->create([
+                    'image_path' => $path,
+                ]);
+            }
+        }
+
+            return redirect()
+        ->route('admin.projects.index')
+        ->with('success', 'Project updated successfully!');
+}
     /**
      * Remove the specified resource from storage.
      */
