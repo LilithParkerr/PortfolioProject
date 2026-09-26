@@ -29,23 +29,34 @@
                             No projects yet. Let's create your first one!
                         </p>
                     @else
-                        <div class="space-y-4">
-                            @foreach ($projects as $project)
-                                <div class="border rounded-lg p-4">
-                                    <h2 class="font-bold text-lg">
-                                        {{ $project->title }}
-                                    </h2>
+                <div class="space-y-4">
+                @foreach ($projects as $project)
+                    <div class="border rounded-lg p-4">
 
-                                    <p class="text-sm text-gray-500">
-                                        {{ $project->category->name }}
-                                    </p>
+                        @if ($project->images->isNotEmpty())
+                            <img
+                                src="{{ asset('storage/' . $project->images->first()->image_path) }}"
+                                alt="{{ $project->title }}"
+                                class="w-full h-48 object-cover rounded-lg mb-4"
+                            >
+                        @endif
 
-                                    <p class="mt-2 text-gray-700">
-                                        {{ $project->description }}
-                                    </p>
-                                </div>
-                            @endforeach
-                        </div>
+            <a href="{{ route('admin.projects.show', $project) }}"
+                class="font-bold text-lg hover:underline">
+                    {{ $project->title }}
+            </a>
+
+            <p class="text-sm text-gray-500">
+                {{ $project->category->name }}
+            </p>
+
+            <p class="mt-2 text-gray-700">
+                {{ $project->description }}
+            </p>
+
+        </div>
+    @endforeach
+</div>
                     @endif
 
                 </div>
