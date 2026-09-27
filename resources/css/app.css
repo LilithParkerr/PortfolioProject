@@ -17,3 +17,15 @@ body {
         ),
         #050505;
 }
+
+.skill-card {
+    @apply rounded-2xl border border-purple-900/60 bg-purple-950/40 p-6 text-center transition duration-300;
+}
+
+.skill-card:hover {
+    @apply -translate-y-1 border-pink-300/60 bg-purple-950;
+}
+
+.skill-card p {
+    @apply mt-3 font-semibold text-gray-200;
+}

@@ -4,13 +4,17 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ContactController;
 
-Route::get('/', function () {
-    return view('portfolio');
-});
+Route::get('/', [PortfolioController::class, 'index'])
+    ->name('portfolio');
 
 Route::get('/projects/{project:slug}', [PortfolioController::class, 'show'])
     ->name('projects.show');
+
+
+Route::post('/contact', [ContactController::class, 'send'])
+    ->name('contact.send');
 
 
 Route::get('/dashboard', function () {

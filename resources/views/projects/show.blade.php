@@ -1,50 +1,91 @@
-<x-app-layout>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-    <div class="py-12">
-        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <div class="bg-white shadow-sm sm:rounded-lg overflow-hidden">
+    <title>{{ $project->title }} — Portfolio</title>
 
-                <div class="p-6">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
-                    <h1 class="text-3xl font-bold">
-                        {{ $project->title }}
-                    </h1>
+<body class="bg-black text-white">
 
-                    <p class="text-sm text-gray-500 mt-2">
+    <div class="min-h-screen">
+
+        <main class="px-6 py-16">
+
+            <div class="max-w-6xl mx-auto">
+
+                <a
+                    href="{{ url('/') }}"
+                    class="inline-flex items-center text-sm text-gray-400 hover:text-pink-300 transition mb-8"
+                >
+                    ← Back to portfolio
+                </a>
+
+                <div class="mb-10">
+
+                    <p class="text-pink-300 text-sm font-semibold mb-3">
                         {{ $project->category->name }}
                     </p>
 
-                    <p class="mt-6 text-gray-700">
+                    <h1 class="text-4xl md:text-6xl font-bold">
+                        {{ $project->title }}
+                    </h1>
+
+                    <p class="mt-6 text-lg text-gray-400 max-w-3xl leading-relaxed">
                         {{ $project->description }}
                     </p>
 
-                    @if ($project->images->isNotEmpty())
-                        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            @foreach ($project->images as $image)
+                </div>
+
+                @if ($project->images->isNotEmpty())
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        @foreach ($project->images as $image)
+
+                            <div class="overflow-hidden rounded-3xl border border-purple-900/60 bg-purple-950/40">
+
                                 <img
                                     src="{{ asset('storage/' . $image->image_path) }}"
                                     alt="{{ $project->title }}"
-                                    class="w-full rounded-xl object-cover"
+                                    class="w-full h-auto object-cover"
                                 >
-                            @endforeach
-                        </div>
-                    @endif
 
-                    <div class="mt-8">
-                        <a
-                            href="{{ url('/') }}"
-                            class="inline-block px-4 py-2 bg-purple-700 text-white rounded-lg hover:bg-purple-800 transition"
-                        >
-                            ← Back to Portfolio
-                        </a>
+                            </div>
+
+                        @endforeach
+
                     </div>
+
+                @else
+
+                    <div class="rounded-3xl border border-purple-900/60 bg-purple-950/40 p-12 text-center text-gray-500">
+                        No images have been added to this project yet.
+                    </div>
+
+                @endif
+
+                <div class="mt-10">
+
+                    <a
+                        href="{{ url('/') }}"
+                        class="inline-block px-6 py-3 bg-pink-300 text-black font-semibold rounded-full hover:bg-pink-200 hover:scale-105 transition"
+                    >
+                        ← Back to portfolio
+                    </a>
 
                 </div>
 
             </div>
 
-        </div>
+        </main>
+
     </div>
 
-</x-app-layout>
+</body>
+
+</html>
