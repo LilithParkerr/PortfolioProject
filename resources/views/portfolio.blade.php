@@ -25,7 +25,7 @@
                 href="/"
                 class="text-xl font-bold tracking-wide hover:text-pink-300 transition"
             >
-                YourName<span class="text-pink-300">.</span>
+                Romy van Pelt<span class="text-pink-300">.</span>
             </a>
 
             {{-- Navigation --}}
@@ -101,7 +101,7 @@
 
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-950 border border-purple-800 text-pink-300 text-sm mb-6">
                     <span class="w-2 h-2 rounded-full bg-pink-300"></span>
-                    Available for new projects
+                    Open to opportunities
                 </div>
 
                 <p class="text-pink-300 text-lg mb-3">
@@ -109,13 +109,12 @@
                 </p>
 
                 <h2 class="text-5xl md:text-6xl xl:text-7xl font-bold leading-tight">
-                    Your Name
+                    Romy van Pelt
                 </h2>
 
                 <p class="mt-6 text-xl text-gray-300 leading-relaxed max-w-xl">
-                    I create modern websites and web applications
-                    with a focus on clean design, smooth experiences
-                    and solid development.
+                    I'm a 22-year-old MBO 4 Software Developer in my exam year, currently specializing in web development. I enjoy building modern websites and web applications while continuing to grow my skills as a developer.
+
                 </p>
 
                 <div class="flex flex-wrap gap-4 mt-8">
@@ -145,9 +144,11 @@
 
                 <div class="relative aspect-[4/5] max-w-md mx-auto overflow-hidden rounded-[2rem] border border-purple-800 bg-purple-950">
 
-                    <div class="h-full flex items-center justify-center text-gray-500">
-                        Your photo here
-                    </div>
+                    <img
+                        src="{{ asset('images/profile.jpg') }}"
+                        alt="Romy van Pelt"
+                        class="w-full h-full object-cover"
+                    >
 
                 </div>
 
@@ -513,28 +514,38 @@
                 <div class="border-t border-purple-900/60 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
 
                     <p class="text-sm text-gray-500">
-                        © {{ date('Y') }} Your Name. All rights reserved.
+                        © {{ date('Y') }} Romy van Pelt. All rights reserved.
                     </p>
 
                     <div class="flex items-center gap-6 text-sm text-gray-400">
 
-                        <a href="#about" class="hover:text-pink-300 transition">
-                            About
+                    <a href="#about" class="hover:text-pink-300 transition">
+                        About
+                    </a>
+
+                    <a href="#projects" class="hover:text-pink-300 transition">
+                        Projects
+                    </a>
+
+                    <a href="#skills" class="hover:text-pink-300 transition">
+                        Skills
+                    </a>
+
+                    <a href="#contact" class="hover:text-pink-300 transition">
+                        Contact
+                    </a>
+
+                    @guest
+                        <a href="{{ route('login') }}" class="hover:text-pink-300 transition">
+                            Sign in
                         </a>
 
-                        <a href="#projects" class="hover:text-pink-300 transition">
-                            Projects
+                        <a href="{{ route('register') }}" class="hover:text-pink-300 transition">
+                            Register
                         </a>
+                    @endguest
 
-                        <a href="#skills" class="hover:text-pink-300 transition">
-                            Skills
-                        </a>
-
-                        <a href="#contact" class="hover:text-pink-300 transition">
-                            Contact
-                        </a>
-
-                    </div>
+                </div>
 
                 </div>
 

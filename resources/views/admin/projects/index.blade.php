@@ -52,7 +52,7 @@
                 Edit
             </a>
 
-        <form
+            <form
             method="POST"
             action="{{ route('admin.projects.destroy', $project) }}"
             class="inline-block mt-2"
