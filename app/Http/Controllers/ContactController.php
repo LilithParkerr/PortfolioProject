@@ -17,13 +17,15 @@ class ContactController extends Controller
             ]);
         } catch (ValidationException $e) {
             return redirect()
-                ->to(url('/#contact'))
+                ->to(url('/'))
                 ->withErrors($e->errors())
-                ->withInput();
+                ->withInput()
+                ->with('scroll_to_contact', true);
         }
 
         return redirect()
-            ->to(url('/#contact'))
-            ->with('success', 'Thanks! Your message has been received.');
+            ->to(url('/'))
+            ->with('success', 'Thanks! Your message has been received.')
+            ->with('scroll_to_contact', true);
     }
 }
